@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Logging;
 using NCS.DSS.Interaction.Models;
 using NCS.DSS.Interaction.ReferenceData;
 
@@ -8,6 +9,7 @@ namespace NCS.DSS.Interaction.Validation
 {
     public class Validate : IValidate
     {
+        private ILogger log;
         public List<ValidationResult> ValidateResource(IInteraction resource)
         {
             var context = new ValidationContext(resource, null, null);
@@ -23,6 +25,9 @@ namespace NCS.DSS.Interaction.Validation
         {
             if (interactionResource == null)
                 return;
+
+            log.LogInformation("Date from user utc: " + interactionResource.DateandTimeOfInteraction.Value.ToUniversalTime() + 
+                " Datetime utc on azure: " + DateTime.UtcNow);
 
             if (interactionResource.DateandTimeOfInteraction.HasValue && interactionResource.DateandTimeOfInteraction.Value > DateTime.UtcNow)
                 results.Add(new ValidationResult("Date and Time Of Interaction must be less the current date/time", new[] { "DateandTimeOfInteraction" }));
