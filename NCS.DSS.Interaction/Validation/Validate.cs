@@ -26,7 +26,7 @@ namespace NCS.DSS.Interaction.Validation
             if (interactionResource == null)
                 return;
 
-            log.LogInformation("Date from user utc: " + interactionResource.DateandTimeOfInteraction.Value.ToUniversalTime() + 
+            log.LogInformation("*** DATE TEST *** Date from user utc: " + interactionResource.DateandTimeOfInteraction.Value.ToUniversalTime() + 
                 " Datetime utc on azure: " + DateTime.UtcNow);
 
             if (interactionResource.DateandTimeOfInteraction.HasValue && interactionResource.DateandTimeOfInteraction.Value > DateTime.UtcNow)
