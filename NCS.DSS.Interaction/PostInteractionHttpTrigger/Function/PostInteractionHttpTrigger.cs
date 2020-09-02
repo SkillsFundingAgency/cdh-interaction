@@ -86,6 +86,9 @@ namespace NCS.DSS.Interaction.PostInteractionHttpTrigger.Function
             if (isCustomerReadOnly)
                 return HttpResponseMessageHelper.Forbidden(customerGuid);
 
+            log.LogInformation("*** DATE TEST *** Date from user utc: " + interactionRequest.DateandTimeOfInteraction.Value.ToUniversalTime() +
+    " Datetime utc on azure: " + DateTime.UtcNow);
+
             var interaction = await interactionPostService.CreateAsync(interactionRequest);
 
             if (interaction != null)
